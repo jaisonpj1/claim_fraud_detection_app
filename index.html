@@ -1,0 +1,383 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detect auto insurance fraud</title>
+
+
+    <!-- BootStrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+
+    <!-- css -->
+    <link rel="stylesheet" href="static/css/styles.css">
+
+
+    <script type="text/javascript"
+            src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=SE_0NoEA-ukZx0wHdvI_t37xRxU6dd34inv08O33qBXLZ1CnE_o0MObEEzLoQjOXSV3mpwxUwWOi812Oat3-Q5FB1ETNQlX4YlpezPVVMTDiuZwc1wp5FoMmeuCY9UbbWiYTsYLuFXxXDEBGfHaRVPRnHtXgEQIk080-QT-jLbM4SWGFP7p4E3LyeLOi3iJbvTY99_WM3NVWtGgTlYBD0IpEedhRYvAN_BMaAgktRr7FI4Az0F7Z-O0vL7mfp-wgi3dzMQ7rlstv9lGo020L9CBXbZaGPQb-Psrt7gMKtAiHrwGBbx_w_XpXzVqFfsctX5pYLUie1RCYfKYWFy7y8gQGbOqElQbuEaUgPpaI6Z_hie8Uu4S0EPqdUBiA5sOX297_IWtvJet0BUEOefS9C1ZbJQPqyQuJc_nj7EbCwZEy1rIZRHjYCAhdLUQHZCBQSFssirqcgUxCJxCID1_Efogyp0m1YojnC90nOoZi_XeF0L2_G8B8AsP9167gIC2aKPFeX6UkG9s5UUDy4LQPqr8EMfM49cj7QV4JU3TPNj3CQxnemfHeg00CX4Z1p1XcjCz1FfvO5s24qIBlP5WKJA5UYQdnXcznpQHak7xLpJvkuOMpQsawb0rqgaSGReH8L0fyFxwTk-52btb6OtGc5VSej0R2d-IxEJc86P-HE20m5cz6takXYlwoNKQhbpYzlfmxKJs_YOpGtuQr7RyhFo9Fg8i-xSYAwB4PJtvxIwxN6ZFOiZgSBmJMQgkiXMwFy5U4LjX2dZr9VaMdReBkf46-GnOEG2A8JNnhTm2R-YG6Yv-Ok132rbwhwa2uJ7OnzeZUiAqgcVInbWXc5PljvgSJNkJq8VEOAvx6SzItoXPxijlYm02TyHLlKRKqMl6bK6szoYVoN-1SGnLfcyveWzhAFiaaQxHGIKODyCus0eC3H_DrSHJ4O4OSEYzZJoW0CER1oEL5_2zy4msePttYJJsp9GEA98C0NZQscvinUmbbmtpjlv6TgXABzDezJJtkX1-rtyd4u5diTbXpwhor-zCBLouLnTHn5obHm78KCHAbpNB-SdpZp-kFIxNBTWmyKKPV7eShsx9sIYICokKtoQ6wD-d8ndUWXjCB0n6N4jFc3lB6MZ2cZsQFQbSKQ9ytlGevZLjsavyYIvJSepfX_IPyrgUitH_kd7lMaxfb_HrsRzCnMPenBY7WMXTzX9Mhg61CApgnXhaMMfSaRB-4xg"
+            nonce="b2aaa9cdc5992eb204da7709d8169caf" charset="UTF-8"></script>
+    <link rel="stylesheet" crossorigin="anonymous"
+          href="https://gc.kis.v2.scr.kaspersky-labs.com/E3E8934C-235A-4B0E-825A-35A08381A191/abn/main.css?attr=aHR0cHM6Ly9tYWlsLWF0dGFjaG1lbnQuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2F0dGFjaG1lbnQvdS8wLz91aT0yJmlrPTk3NmJjNDhkZDImYXR0aWQ9MC4xJnBlcm1tc2dpZD1tc2ctZjoxNjg2Nzg4MzU3ODgxNjY3NTQ5JnRoPTE3NjhhZDEzMTJjZDFmZGQmdmlldz1hdHQmZGlzcD1zYWZlJnJlYWxhdHRpZD1mX2tqMDJwdDdjMCZzYWRkYmF0PUFOR2pkSi1ZWDdIR3otaVNFdzBxaTcxaWVKYUZGazZRdG5CQUUxajI4eENUbk5vNnZlUUR3Vm5uQUIwSmxrTFMyWGtEWS05OENuUGo1Q1FQSzNjUllZOW83NUpPYVozMko2MmtpTmxwV0V2THoyTVAwT2lJZjRPc0Fka3pMQ3BvNlU1YnV5dU53X05jSWZfaFpSWXZRcno3MWlMNy1TS2I0Z2hqemFPU01LZVMzZlRsT3pRN0VzWkE3R1Ayd1VEeEs3TTlOZjNtNG9LRUtkZnBESm5xaUNEZXYtNjdtVVMtUHpHd2NNa2hnQjVhTWNxMnI5OVprUE1jVjNNSURmV0J1aXRoR043MVZ4RWpzQ01taUxWX3V4UFFrYUpubVpqYUpOS3QzZ3BBdEgtT3J1LVljV1VqNGpIRk5Vc3Q5dF80cERaREtJWmdHTmRvcUlLckN2QWlhQU9HVkctTE1VV1NCYkh3blM5eC1wb2ZrNjY0Tk5aUktjbHZvekZrWG9USkNvdnlidG44VjM1RXhBRTJQSTlNcjMwLTJoS3d5Y0diYW1hUGQtby1vM2k0X2tFdHBlNnEwUUxDLXpBeGkxSkpXVVZvOEFGNURkcTlRekQxenE4aVFFRHJ2dnVPVm1ZUm1EbjRTUWlzUG1WVDhhSkpiNnZpcE14Z3NtRDV4bHEzTWhmbEt1ZHFHSjFYdi1jTzhmNTdWZHZ1VVp3ai0yME54OWtKY1dOYWd6YXp5bGQ3YW5Ja1pTZklYLWJ2ZGRRdXVtMl9QdFVfTlpFeXJMdjdXZWFHS0dWSnpoemJydU4wVmFRekFYaFViM0JXeWpwTExfWW1hZ2hRampFdGV0RHZVeEdnemN2Z1lKLXUxNWtJWVVHYzhnMGpXTjhHVzN1SE95T2duY2RpYXcyb1VzdVlyUTk5X1FYckdPcnFJcEk"/>
+</head>
+
+<body>
+
+<!-- As a heading -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">Detect auto insurance fraud</a>
+        </div>
+    </div>
+</nav>
+
+<br><br><br>
+
+
+<div class="container">
+
+
+    <form id="myForm">
+        <input type="text" name="months_as_customer" placeholder="months_as_customer" required="required"/>
+        <input type="text" name="age" placeholder="age" required="required"/>
+        <input type="text" name="policy_csl" placeholder="policy_csl" required="required"/>
+        <input type="text" name="policy_deductable" placeholder="policy_deductable" required="required"/>
+        <input type="text" name="policy_annual_premium" placeholder="policy_annual_premium" required="required"/>
+        <input type="text" name="umbrella_limit" placeholder="umbrella_limit" required="required"/>
+        <input type="text" name="capital-gains" placeholder="capital-gains" required="required"/>
+        <input type="text" name="capital-loss" placeholder="capital-loss" required="required"/>
+        <input type="text" name="incident_hour_of_the_day" placeholder="incident_hour_of_the_day" required="required"/>
+        <input type="text" name="number_of_vehicles_involved" placeholder="number_of_vehicles_involved"
+               required="required"/>
+        <input type="text" name="bodily_injuries" placeholder="bodily_injuries" required="required"/>
+        <input type="text" name="witnesses" placeholder="witnesses" required="required"/>
+        <input type="text" name="total_claim_amount" placeholder="total_claim_amount" required="required"/>
+        <input type="text" name="injury_claim" placeholder="injury_claim" required="required"/>
+
+        <input type="text" name="property_claim" placeholder="property_claim" required="required"/>
+        <input type="text" name="vehicle_claim" placeholder="vehicle_claim" required="required"/>
+        <input type="text" name="auto_year" placeholder="auto_year" required="required"/>
+
+
+        <br>
+        <br>
+        <br>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <!-- Source -->
+                        <h5 class="card-title">insured_occupation</h5>
+                        <select name="insured_occupation" id="insured_occupation" required="required">
+                            <option value="machine-op-inspct">machine-op-inspct</option>
+                            <option value="prof-specialty">prof-specialty</option>
+                            <option value="tech-support">tech-support</option>
+                            <option value="exec-managerial">exec-managerial</option>
+                            <option value="sales">sales</option>
+                            <option value="craft-repair">craft-repair</option>
+                            <option value="transport-moving">transport-moving</option>
+                            <option value="priv-house-serv">priv-house-serv</option>
+                            <option value="other-service">other-service</option>
+                            <option value="armed-forces">armed-forces</option>
+                            <option value="adm-clerical">adm-clerical</option>
+                            <option value="protective-serv">protective-serv</option>
+                            <option value="handlers-cleaners">handlers-cleaners</option>
+                            <option value="farming-fishing">farming-fishing</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <!-- Source -->
+                        <h5 class="card-title">insured_relationship</h5>
+                        <select name="insured_relationship" id="insured_relationship" required="required">
+                            <option value="own-child">own-child</option>
+                            <option value="other-relative">other-relative</option>
+                            <option value="not-in-family">not-in-family</option>
+                            <option value="husband">husband</option>
+                            <option value="wife">wife</option>
+                            <option value="unmarried">unmarried</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <!-- Source -->
+                        <h5 class="card-title">policy_state</h5>
+                        <select name="policy_state" id="policy_state" required="required">
+                            <option value="OH">OH</option>
+                            <option value="IN">IN</option>
+                            <option value="IL">IL</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">insured_sex</h5>
+                        <!-- Destination -->
+                        <select name="insured_sex" id="insured_sex" required="required">
+                            <option value="MALE">MALE</option>
+                            <option value="FEMALE">FEMALE</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <!-- Source -->
+                        <h5 class="card-title">collision_type</h5>
+                        <select name="collision_type" id="collision_type" required="required">
+                            <option value="Rear Collision">Rear Collision</option>
+                            <option value="Side Collision">Side Collision</option>
+                            <option value="Front Collision">Front Collision</option>
+                            <option value="Unknown">Unknown</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">incident_severity</h5>
+                        <!-- Destination -->
+                        <select name="incident_severity" id="incident_severity" required="required">
+                            <option value="Minor Damage">Minor Damage</option>
+                            <option value="Total Loss">Total Loss</option>
+                            <option value="Trivial Damage">Trivial Damage</option>
+                            <option value="Major Damage">Major Damage</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <!-- Source -->
+                        <h5 class="card-title">authorities_contacted</h5>
+                        <select name="authorities_contacted" id="authorities_contacted" required="required">
+                            <option value="Police">Police</option>
+                            <option value="Fire">Fire</option>
+                            <option value="Other">Other</option>
+                            <option value="Ambulance">Ambulance</option>
+                            <option value="None">None</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">incident_state</h5>
+
+                        <select name="incident_state" id="incident_state" required="required">
+                            <option value="NY">NY</option>
+                            <option value="SC">SC</option>
+                            <option value="WV">WV</option>
+                            <option value="VA">VA</option>
+                            <option value="NC">NC</option>
+                            <option value="PA">PA</option>
+                            <option value="OH">OH</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <!-- Source -->
+                        <h5 class="card-title">incident_city</h5>
+                        <select name="incident_city" id="incident_city" required="required">
+                            <option value="Springfield">Springfield</option>
+                            <option value="Arlington">Arlington</option>
+                            <option value="Columbus">Columbus</option>
+                            <option value="Northbend">Northbend</option>
+                            <option value="Hillsdale">Hillsdale</option>
+                            <option value="Riverwood">Riverwood</option>
+                            <option value="Northbrook">Northbrook</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">property_damage</h5>
+
+                        <select name="property_damage" id="property_damage" required="required">
+                            <option value="YES">YES</option>
+                            <option value="NO">NO</option>
+                            <option value="Unknown">Unknown</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">insured_education_level</h5>
+                        <!-- Total Stops -->
+                        <select name="insured_education_level" id="insured_education_level" required="required">
+                            <option value="High School">High School</option>
+                            <option value="JD">JD</option>
+                            <option value="College">College</option>
+                            <option value="Masters">Masters</option>
+                            <option value="Associate">Associate</option>
+                            <option value="PhD">PhD</option>
+                            <option value="MD">MD</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">incident_type</h5>
+                        <!-- Airline -->
+                        <select name="incident_type" id="incident_type" required="required">
+                            <option value="Multi-vehicle Collision">Multi-vehicle Collision</option>
+                            <option value="Single Vehicle Collision">Single Vehicle Collision</option>
+                            <option value="Vehicle Theft">Vehicle Theft</option>
+                            <option value="Parked Car">Parked Car</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">police_report_available</h5>
+                        <!-- Airline -->
+                        <select name="police_report_available" id="police_report_available" required="required">
+                            <option value="YES">YES</option>
+                            <option value="NO">NO</option>
+                            <option value="Unknown">Unknown</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <br>
+        <br>
+        <br>
+
+
+        <br>
+        <br>
+        <br>
+        <!-- Submit -->
+        <button onclick="myFunction()" class="btn btn-primary btn-block btn-large">Predict</button>
+    </form>
+
+    <br>
+    <br>
+    <h3 id="prediction"></h3>
+    <p></p>
+
+    <br>
+    <br>
+
+</div>
+
+<script>
+        function myFunction() {
+            document.getElementById("myForm").addEventListener("click", function(event){
+        event.preventDefault()
+      });   
+       var elements = document.getElementById("myForm").elements;
+    var obj ={};
+    for(var i = 0 ; i < elements.length ; i++){
+            var item = elements.item(i);
+        obj[item.name] = item.value;
+       
+  }
+  for (var propName in obj) {
+    if (obj[propName] === null || obj[propName] === undefined||obj[propName] === "") {
+      delete obj[propName];
+    }
+        
+    }
+
+
+
+
+
+            // Creating a XHR object 
+            let xhr = new XMLHttpRequest(); 
+            let url = "http://127.0.0.1:5000/predict";
+        
+            // open a connection 
+            xhr.open("POST", url, true); 
+  
+            // Set the request header i.e. which type of content you are sending 
+            xhr.setRequestHeader("Content-Type", "application/json"); 
+  
+            // Create a state change callback 
+            xhr.onreadystatechange = function () { 
+                if (xhr.readyState === 4 && xhr.status === 200) { 
+
+                    // Print received data from server 
+
+                     document.querySelector("#prediction").innerHTML = this.response;
+
+
+  
+                } 
+            }; 
+  
+            // Converting JSON data to string 
+            var data = JSON.stringify(obj); 
+  
+            // Sending data with the request 
+            xhr.send(data);
+}
+
+</script>
+
+
+<!-- JavaScript -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
+
+
+
